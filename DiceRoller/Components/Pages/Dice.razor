@@ -4,17 +4,37 @@
 
 <h1> Roll the Dice!</h1>
 
-<p>Result: @diceResult</p>
+<p>How many times do you want to roll the dice?</p>
+
+<input type="number" @bind="numberOfRolls" min="1"/>
 
 <button @onclick="RollDice">
     Roll Dice
 </button>
 
+@if (diceResults.Count > 0)
+{
+    <h3> Results</h3>
+    @foreach(int result in diceResults)
+    {
+        <p> You rolled a: @result</p>
+    }
+
+}
+
 @code {
-    private int diceResult = 0;
+    private int numberOfRolls = 1;
+    private List<int> diceResults = new List<int>();
 
     private void RollDice()
     {
-        diceResult = Random.Shared.Next(1, 7);
+        diceResults.Clear();
+
+        for(int i = 0; i<numberOfRolls;i++)
+        {
+            int diceRoll = Random.Shared.Next(1, 7);
+            diceResults.Add(diceRoll);
+        }
+        
     }
 }
