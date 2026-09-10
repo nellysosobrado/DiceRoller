@@ -1,0 +1,20 @@
+﻿@page "/dice"
+
+<PageTitle>Dice Mini Game</PageTitle>
+
+<h1> Roll the Dice!</h1>
+
+<p>Result: @diceResult</p>
+
+<button @onclick="RollDice">
+    Roll Dice
+</button>
+
+@code {
+    private int diceResult = 0;
+
+    private void RollDice()
+    {
+        diceResult = Random.Shared.Next(1, 7);
+    }
+}
