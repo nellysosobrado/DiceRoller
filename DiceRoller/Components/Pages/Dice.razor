@@ -1,4 +1,6 @@
 ﻿@page "/dice"
+@inject DiceService DiceService
+@using DiceRoller.Services
 
 <PageTitle>Dice Mini Game</PageTitle>
 
@@ -43,7 +45,7 @@
 
         for(int i = 0; i<numberOfRolls;i++)
         {
-            int diceRoll = Random.Shared.Next(1, 7);
+            int diceRoll = DiceService.Roll();
 
             diceResults.Add(diceRoll);
         }

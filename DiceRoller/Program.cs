@@ -1,4 +1,5 @@
 using DiceRoller.Components;
+using DiceRoller.Services;
 
 namespace DiceRoller
 {
@@ -11,6 +12,8 @@ namespace DiceRoller
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            builder.Services.AddScoped<DiceService>();
 
             var app = builder.Build();
 
