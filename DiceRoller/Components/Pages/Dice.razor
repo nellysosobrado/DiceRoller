@@ -1,6 +1,7 @@
 ﻿@page "/dice"
 @inject DiceService DiceService
 @using DiceRoller.Services
+@using DiceRoller.Models
 
 <PageTitle>Dice Mini Game</PageTitle>
 
@@ -14,46 +15,33 @@
     Roll Dice
 </button>
 
-@if (diceResults.Count > 0)
+@if (diceResult !=null)
 {
     <h3> Results</h3>
-    @foreach(int result in diceResults)
+    @foreach(int roll in diceResult.Rolls)
     {
-        <p> You rolled a: @result</p>
+        <p> You rolled a: @roll</p>
     }
 
     <h3>Statistics</h3>
-    <p>Total: @total</p>
-    <p>Average: @average.ToString("0.00")</p>
-    <p>Highest Roll: @highest</p>
-    <p>Lowest´roll : @lowest</p>
+    <p>Total: @diceResult.Total</p>
+    <p>Average: @diceResult.Average.ToString("0.00")</p>
+    <p>Highest Roll: @diceResult.Highest</p>
+    <p>Lowest Roll: @diceResult.Lowest</p>
 
 }
 
 @code {
     private int numberOfRolls = 1;
-    private List<int> diceResults = new List<int>();
 
-    private int total;
-    private double average;
-    private int highest;
-    private int lowest;
+    private DiceResult? diceResult;
 
     private void RollDice()
     {
-        diceResults.Clear();
-
-        for(int i = 0; i<numberOfRolls;i++)
+        if(numberOfRolls < 1)
         {
-            int diceRoll = DiceService.Roll();
-
-            diceResults.Add(diceRoll);
+            return;
         }
-
-        total = diceResults.Sum();
-        average = diceResults.Average();
-        highest = diceResults.Max();
-        lowest = diceResults.Min();
-
+        diceResult = DiceService.Roll(numberOfRolls);
     }
 }
