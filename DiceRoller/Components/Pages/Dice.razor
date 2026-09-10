@@ -20,11 +20,22 @@
         <p> You rolled a: @result</p>
     }
 
+    <h3>Statistics</h3>
+    <p>Total: @total</p>
+    <p>Average: @average.ToString("0.00")</p>
+    <p>Highest Roll: @highest</p>
+    <p>Lowest´roll : @lowest</p>
+
 }
 
 @code {
     private int numberOfRolls = 1;
     private List<int> diceResults = new List<int>();
+
+    private int total;
+    private double average;
+    private int highest;
+    private int lowest;
 
     private void RollDice()
     {
@@ -33,8 +44,14 @@
         for(int i = 0; i<numberOfRolls;i++)
         {
             int diceRoll = Random.Shared.Next(1, 7);
+
             diceResults.Add(diceRoll);
         }
-        
+
+        total = diceResults.Sum();
+        average = diceResults.Average();
+        highest = diceResults.Max();
+        lowest = diceResults.Min();
+
     }
 }
